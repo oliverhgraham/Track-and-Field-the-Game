@@ -246,7 +246,26 @@ def h110(athlete):
 
 def h400(athlete):
     return athlete.power * 0.2 + athlete.endure * 0.3 + athlete.tec * 0.5
-eventList  =[m100,m200,m400,m800,m1600,m3200,discus,shotput,shotput,jav,long, high, polevault, h110,h400]
+
+
+eventList = [
+    m100,
+    m200,
+    m400,
+    m800,
+    m1600,
+    m3200,
+    discus,
+    shotput,
+    shotput,
+    jav,
+    long,
+    high,
+    polevault,
+    h110,
+    h400,
+]
+
 
 # trainings:
 def enduranceTraining():
@@ -336,9 +355,10 @@ def onAppStart(app):
         "110m hurdles",
         "400m hurdles",
     ]
-    app.currentEvent = app.eventsList[0]
+    app.currentEvent = 0
     app.playerScore = 0
     app.opponentScore = 0
+    app.cardSelected = False
     pass
 
 
@@ -386,7 +406,8 @@ def drawMeet(app):  # need to do
             True,
         )
     drawRect(app.width / 2 - 400, app.height / 2 - 100, 800, 200, fill="gray")
-    drawLabel(app.currentEvent, app.width / 2 - 100, app.height / 2, size=100)
+    drawLabel(app.eventsList[app.currentEvent], app.width / 2 - 100, app.height / 2, size=100)
+    makeCard(app.width/2+200,app.height/2-100,computerPick()[app.currentEvent],True)
 
 
 def drawPractice(app):
@@ -778,6 +799,7 @@ def onMousePress(app, mouseX, mouseY):
                 app.width / 2 - 400 < mouseX < app.width / 2 - 200
                 and app.height / 2 + 120 > mouseY > app.height / 2 - 80
                 and not app.tecTrain
+                and app.cardSelected
             ):
                 tecTraining()
                 app.tecTrain = True
@@ -785,6 +807,7 @@ def onMousePress(app, mouseX, mouseY):
                 app.width / 2 - 100 < mouseX < app.width / 2 + 100
                 and app.height / 2 + 120 > mouseY > app.height / 2 - 80
                 and not app.powerTrain
+                and app.cardSelected
             ):
                 powerTraining()
                 app.powerTrain = True
@@ -792,13 +815,14 @@ def onMousePress(app, mouseX, mouseY):
                 app.width / 2 + 200 < mouseX < app.width / 2 + 400
                 and app.height / 2 + 120 > mouseY > app.height / 2 - 80
                 and not app.endureTrain
+                and app.cardSelected
             ):
                 enduranceTraining()
                 app.endureTrain = True
             if app.tecTrain and app.powerTrain and app.endureTrain:
                 app.meet = True
         else:
-            print('hi')
+            print("hi")#place holder this needs fixing
         for i in range(len(myteam.team)):
             if (
                 i * 1500 / len(myteam.team) + ((0.5 * 1500 / len(myteam.team)) - 55)
@@ -809,10 +833,14 @@ def onMousePress(app, mouseX, mouseY):
                 and mouseY > 480
             ):
                 if myteam.team[i].selected == True:
+                    app.cardSelected = False
                     myteam.team[i].selected = False
                 else:
+                    app.cardSelected = True
                     myteam.team[i].selected = True
+                    break
             else:
+                app.cardSelected = False
                 myteam.team[i].selected = False
 
 
