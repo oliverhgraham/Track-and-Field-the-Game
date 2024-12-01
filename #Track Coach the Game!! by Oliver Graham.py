@@ -257,7 +257,6 @@ eventList = [
     m3200,
     discus,
     shotput,
-    shotput,
     jav,
     long,
     high,
@@ -359,6 +358,7 @@ def onAppStart(app):
     app.playerScore = 0
     app.opponentScore = 0
     app.cardSelected = False
+    app.selected = None
     pass
 
 
@@ -406,8 +406,15 @@ def drawMeet(app):  # need to do
             True,
         )
     drawRect(app.width / 2 - 400, app.height / 2 - 100, 800, 200, fill="gray")
-    drawLabel(app.eventsList[app.currentEvent], app.width / 2 - 100, app.height / 2, size=100)
-    makeCard(app.width/2+200,app.height/2-100,computerPick()[app.currentEvent],True)
+    drawLabel(
+        app.eventsList[app.currentEvent], app.width / 2 - 100, app.height / 2, size=100
+    )
+    makeCard(
+        app.width / 2 + 200,
+        app.height / 2 - 100,
+        computerPick()[app.currentEvent],
+        True,
+    )
 
 
 def drawPractice(app):
@@ -822,7 +829,16 @@ def onMousePress(app, mouseX, mouseY):
             if app.tecTrain and app.powerTrain and app.endureTrain:
                 app.meet = True
         else:
-            print("hi")#place holder this needs fixing
+            global eventList
+
+            if (
+                (app.width / 2) - 400 < mouseX < (app.width / 2) + 400
+                and (app.height / 2) - 100 < mouseY < (app.height / 2) + 100
+                and app.cardSelected
+            ):
+                if app.selected != None:
+                    print(eventList[app.currentEvent](app.selected))
+
         for i in range(len(myteam.team)):
             if (
                 i * 1500 / len(myteam.team) + ((0.5 * 1500 / len(myteam.team)) - 55)
@@ -835,11 +851,17 @@ def onMousePress(app, mouseX, mouseY):
                 if myteam.team[i].selected == True:
                     app.cardSelected = False
                     myteam.team[i].selected = False
+                    app.selected = None
                 else:
                     app.cardSelected = True
+                    for athlete in myteam.team:
+                        athlete.selected = False
                     myteam.team[i].selected = True
+                    app.selected = myteam.team[i]
+
                     break
             else:
+                app.selected = None
                 app.cardSelected = False
                 myteam.team[i].selected = False
 
@@ -867,9 +889,5 @@ myteam = team()
 myteam.makeRoster()
 otherTeam = team()
 otherTeam.makeRoster()
-print(myteam)
 myteam.newyear()
-print(myteam)
-print(otherTeam)
-print(computerPick())
 main()
