@@ -829,7 +829,6 @@ def onMousePress(app, mouseX, mouseY):
             if app.tecTrain and app.powerTrain and app.endureTrain:
                 app.meet = True
         else:
-            global eventList
 
             if (
                 (app.width / 2) - 400 < mouseX < (app.width / 2) + 400
@@ -837,7 +836,21 @@ def onMousePress(app, mouseX, mouseY):
                 and app.cardSelected
             ):
                 if app.selected != None:
-                    print(eventList[app.currentEvent](app.selected))
+                    if (eventList[app.currentEvent](app.selected)) > eventList[app.currentEvent](computerPick()[app.currentEvent]):
+                        print('you: '+ str(eventList[app.currentEvent](app.selected)))
+                        print('them: '+ str(eventList[app.currentEvent](computerPick()[app.currentEvent])))
+                        app.playerScore +=1
+                        print('you win')
+                    elif (eventList[app.currentEvent](app.selected)) == eventList[app.currentEvent](computerPick()[app.currentEvent]):
+                        print('you: '+ str(eventList[app.currentEvent](app.selected)))
+                        print('them: '+ str(eventList[app.currentEvent](computerPick()[app.currentEvent])))
+                        print('you tied')
+                    else:
+                        print('you: '+ str(eventList[app.currentEvent](app.selected)))
+                        print('them: '+ str(eventList[app.currentEvent](computerPick()[app.currentEvent])))
+                        app.opponentScore +=1
+                        print('you lose')
+                    app.currentEvent +=1
 
         for i in range(len(myteam.team)):
             if (
