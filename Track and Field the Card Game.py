@@ -652,151 +652,6 @@ def computerPick():  # terrible returns list in order of events no wearing out y
         best = None
         bestScore = 0
     return bestList
-
-
-    """bestList = []
-    best = None
-    bestScore = 0
-    for athlete in otherTeam.team:
-        if best == None:
-            best = athlete
-        else:
-            if m100(athlete) > bestScore:
-                best = athlete
-                bestScore = m100(athlete)
-    bestList.append(best)
-    best = None
-    bestScore = 0
-    for athlete in otherTeam.team:
-        if best == None:
-            best = athlete
-        else:
-            if m200(athlete) > bestScore:
-                best = athlete
-                bestScore = m200(athlete)
-    bestList.append(best)
-    best = None
-    bestScore = 0
-    for athlete in otherTeam.team:
-        if best == None:
-            best = athlete
-        else:
-            if m400(athlete) > bestScore:
-                best = athlete
-                bestScore = m400(athlete)
-    bestList.append(best)
-    best = None
-    bestScore = 0
-    for athlete in otherTeam.team:
-        if best == None:
-            best = athlete
-        else:
-            if m800(athlete) > bestScore:
-                best = athlete
-                bestScore = m800(athlete)
-    bestList.append(best)
-    best = None
-    bestScore = 0
-    for athlete in otherTeam.team:
-        if best == None:
-            best = athlete
-        else:
-            if m1600(athlete) > bestScore:
-                best = athlete
-                bestScore = m1600(athlete)
-    bestList.append(best)
-    best = None
-    bestScore = 0
-    for athlete in otherTeam.team:
-        if best == None:
-            best = athlete
-        else:
-            if m3200(athlete) > bestScore:
-                best = athlete
-                bestScore = m3200(athlete)
-    bestList.append(best)
-    best = None
-    bestScore = 0
-    for athlete in otherTeam.team:
-        if best == None:
-            best = athlete
-        else:
-            if discus(athlete) > bestScore:
-                best = athlete
-                bestScore = discus(athlete)
-    bestList.append(best)
-    best = None
-    bestScore = 0
-    for athlete in otherTeam.team:
-        if best == None:
-            best = athlete
-        else:
-            if shotput(athlete) > bestScore:
-                best = athlete
-                bestScore = shotput(athlete)
-    bestList.append(best)
-    best = None
-    bestScore = 0
-    for athlete in otherTeam.team:
-        if best == None:
-            best = athlete
-        else:
-            if jav(athlete) > bestScore:
-                best = athlete
-                bestScore = jav(athlete)
-    bestList.append(best)
-    best = None
-    bestScore = 0
-    for athlete in otherTeam.team:
-        if best == None:
-            best = athlete
-        else:
-            if long(athlete) > bestScore:
-                best = athlete
-                bestScore = long(athlete)
-    bestList.append(best)
-    best = None
-    bestScore = 0
-    for athlete in otherTeam.team:
-        if best == None:
-            best = athlete
-        else:
-            if high(athlete) > bestScore:
-                best = athlete
-                bestScore = high(athlete)
-    bestList.append(best)
-    best = None
-    bestScore = 0
-    for athlete in otherTeam.team:
-        if best == None:
-            best = athlete
-        else:
-            if polevault(athlete) > bestScore:
-                best = athlete
-                bestScore = polevault(athlete)
-    bestList.append(best)
-    best = None
-    bestScore = 0
-    for athlete in otherTeam.team:
-        if best == None:
-            best = athlete
-        else:
-            if h110(athlete) > bestScore:
-                best = athlete
-                bestScore = h110(athlete)
-    bestList.append(best)
-    best = None
-    bestScore = 0
-    for athlete in otherTeam.team:
-        if best == None:
-            best = athlete
-        else:
-            if h400(athlete) > bestScore:
-                best = athlete
-                bestScore = h400(athlete)
-    return bestList"""
-
-
 # meet
 
 
@@ -865,7 +720,19 @@ def onMousePress(app, mouseX, mouseY):
                         print('them: '+ str(eventList[app.currentEvent](computerPick()[app.currentEvent])))
                         app.opponentScore +=1
                         print('you lose')
-                    app.currentEvent +=1
+                    print(app.currentEvent)
+                    print(len(app.eventsList))
+                    if app.currentEvent < len(app.eventsList)-1:
+                        app.currentEvent +=1
+                    else:
+                        print('1')
+                        app.currentEvent = 0
+                        print('2')
+                        app.meet = False
+                        print('3')
+                        app.endureTrain = False
+                        app.tecTrain = False
+                        app.powerTrain = False
 
         for i in range(len(myteam.team)):
             if (
