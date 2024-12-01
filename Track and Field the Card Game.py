@@ -640,6 +640,21 @@ for func in func_list:
 
 def computerPick():  # terrible returns list in order of events no wearing out yet
     bestList = []
+    bestScore = 0
+    best = None
+    for event in eventList:
+        for athlete in otherTeam.team:
+            if best == None:
+                best = athlete
+            elif event(athlete) > event(best):
+                best = athlete
+        bestList.append(best)
+        best = None
+        bestScore = 0
+    return bestList
+
+
+    """bestList = []
     best = None
     bestScore = 0
     for athlete in otherTeam.team:
@@ -779,7 +794,7 @@ def computerPick():  # terrible returns list in order of events no wearing out y
             if h400(athlete) > bestScore:
                 best = athlete
                 bestScore = h400(athlete)
-    return bestList
+    return bestList"""
 
 
 # meet
