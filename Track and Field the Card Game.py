@@ -21,6 +21,7 @@ class athlete:
         self.injured = False
         self.highlighted = False
         self.selected = False
+        self.tired = 0
 
     def __repr__(self):
         return (
@@ -56,15 +57,20 @@ class team:
 
     def newyear(self):
         for athlete in self.team:
+            print(athlete.year)
             if athlete.year == 4:
                 self.team.remove(athlete)
+            else:
+                athlete.year +=1
         if len(self.team) < 8:
             for i in range(random.randint(8 - len(self.team), 12 - len(self.team))):
                 self.team.append(makeAthlete(0))
         elif len(self.team) < 12:
             for i in range(random.randint(0, 12 - len(self.team))):
                 self.team.append(makeAthlete(0))
-
+    def newMeet(self):
+        for athlete in self.team:
+            athlete.tired = 0
 
 #  generate a athlete
 def makeAthlete(year=-1):
@@ -359,6 +365,7 @@ def onAppStart(app):
     app.opponentScore = 0
     app.cardSelected = False
     app.selected = None
+    app.trainingMessage = "pick one athlete for each type of training:"
     pass
 
 
@@ -419,7 +426,7 @@ def drawMeet(app):  # need to do
 
 def drawPractice(app):
     drawLabel(
-        "pick one athlete for each type of training:",
+        app.trainingMessage,
         app.width / 2,
         150,
         size=50,
@@ -697,6 +704,7 @@ def onMousePress(app, mouseX, mouseY):
                 enduranceTraining()
                 app.endureTrain = True
             if app.tecTrain and app.powerTrain and app.endureTrain:
+                myteam.newMeet
                 app.meet = True
         else:
 
@@ -712,8 +720,8 @@ def onMousePress(app, mouseX, mouseY):
                         app.playerScore +=1
                         print('you win')
                     elif (eventList[app.currentEvent](app.selected)) == eventList[app.currentEvent](computerPick()[app.currentEvent]):
-                        print('you: '+ str(eventList[app.currentEvent](app.selected)))
-                        print('them: '+ str(eventList[app.currentEvent](computerPick()[app.currentEvent])))
+                        app.playerScore +=0.5
+                        app.opponentScore += 0.5
                         print('you tied')
                     else:
                         print('you: '+ str(eventList[app.currentEvent](app.selected)))
@@ -725,9 +733,10 @@ def onMousePress(app, mouseX, mouseY):
                     if app.currentEvent < len(app.eventsList)-1:
                         app.currentEvent +=1
                     else:
-                        
+                        print('meet Over')
                         if app.opponentScore >app.playerScore:
-                            myteam.newyear
+                            print('theres an issue with newyear')
+                            myteam.newyear()
                         app.opponentScore = 0
                         otherTeam = team()
                         otherTeam.makeRoster()
@@ -788,5 +797,4 @@ myteam = team()
 myteam.makeRoster()
 otherTeam = team()
 otherTeam.makeRoster()
-myteam.newyear()
 main()
