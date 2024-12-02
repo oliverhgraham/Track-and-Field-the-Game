@@ -725,11 +725,15 @@ def onMousePress(app, mouseX, mouseY):
                     if app.currentEvent < len(app.eventsList)-1:
                         app.currentEvent +=1
                     else:
-                        print('1')
+                        
+                        if app.opponentScore >app.playerScore:
+                            myteam.newyear
+                        app.opponentScore = 0
+                        otherTeam = team()
+                        otherTeam.makeRoster()
+                        app.playerScore = 0
                         app.currentEvent = 0
-                        print('2')
                         app.meet = False
-                        print('3')
                         app.endureTrain = False
                         app.tecTrain = False
                         app.powerTrain = False
