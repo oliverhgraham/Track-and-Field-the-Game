@@ -57,20 +57,21 @@ class team:
 
     def newyear(self):
         for athlete in self.team:
-            print(athlete.year)
             if athlete.year == 4:
                 self.team.remove(athlete)
             else:
-                athlete.year +=1
+                athlete.year += 1
         if len(self.team) < 8:
             for i in range(random.randint(8 - len(self.team), 12 - len(self.team))):
                 self.team.append(makeAthlete(0))
         elif len(self.team) < 12:
             for i in range(random.randint(0, 12 - len(self.team))):
                 self.team.append(makeAthlete(0))
+
     def newMeet(self):
         for athlete in self.team:
             athlete.tired = 0
+
 
 #  generate a athlete
 def makeAthlete(year=-1):
@@ -199,60 +200,73 @@ def makeAthlete(year=-1):
 
 
 def m100(athlete):
-    return athlete.power
-
+    result= athlete.power * ((athlete.endure/11)**athlete.tired)
+    athlete.tired +=1
+    return result
 
 def m200(athlete):
-    return athlete.power * 0.8 + athlete.endure * 0.2
-
+    return athlete.power * 0.8 + athlete.endure * 0.2 * ((athlete.endure/11)**athlete.tired)
+    athlete.tired +=1
+    return result
 
 def m400(athlete):
-    return athlete.power * 0.4 + athlete.endure * 0.6
-
+    return athlete.power * 0.4 + athlete.endure * 0.6 * ((athlete.endure/11)**athlete.tired)
+    athlete.tired +=1
+    return result
 
 def m800(athlete):
-    return athlete.power * 0.3 + athlete.endure * 0.7
-
+    return athlete.power * 0.3 + athlete.endure * 0.7 * ((athlete.endure/11)**athlete.tired)
+    athlete.tired +=1
+    return result
 
 def m1600(athlete):
-    return athlete.power * 0.2 + athlete.endure * 0.8
-
+    return athlete.power * 0.2 + athlete.endure * 0.8 * ((athlete.endure/11)**athlete.tired)
+    athlete.tired +=1
+    return result
 
 def m3200(athlete):
-    return athlete.power * 0.1 + athlete.endure * 0.9
-
+    return athlete.power * 0.1 + athlete.endure * 0.9 * ((athlete.endure/11)**athlete.tired)
+    athlete.tired +=1
+    return result
 
 def discus(athlete):
-    return athlete.power * 0.4 + athlete.tec * 0.6
-
+    return athlete.power * 0.4 + athlete.tec * 0.6 * ((athlete.endure/11)**athlete.tired)
+    athlete.tired +=1
+    return result
 
 def shotput(athlete):
-    return athlete.power * 0.7 + athlete.tec * 0.3
-
+    return athlete.power * 0.7 + athlete.tec * 0.3 * ((athlete.endure/11)**athlete.tired)
+    athlete.tired +=1
+    return result
 
 def jav(athlete):
-    return athlete.power * 0.3 + athlete.tec * 0.7
-
+    return athlete.power * 0.3 + athlete.tec * 0.7 * ((athlete.endure/11)**athlete.tired)
+    athlete.tired +=1
+    return result
 
 def long(athlete):
-    return athlete.power * 0.7 + athlete.tec * 0.3
-
+    return athlete.power * 0.7 + athlete.tec * 0.3 * ((athlete.endure/11)**athlete.tired)
+    athlete.tired +=1
+    return result
 
 def high(athlete):
-    return athlete.power * 0.6 + athlete.tec * 0.4
-
+    return athlete.power * 0.6 + athlete.tec * 0.4 * ((athlete.endure/11)**athlete.tired)
+    athlete.tired +=1
+    return result
 
 def polevault(athlete):
-    return athlete.power * 0.3 + athlete.tec * 0.7
-
+    return athlete.power * 0.3 + athlete.tec * 0.7 * ((athlete.endure/11)**athlete.tired)
+    athlete.tired +=1
+    return result
 
 def h110(athlete):
-    return athlete.power * 0.5 + athlete.tec * 0.5
-
-
+    return athlete.power * 0.5 + athlete.tec * 0.5 * ((athlete.endure/11)**athlete.tired)
+    athlete.tired +=1
+    return result
 def h400(athlete):
-    return athlete.power * 0.2 + athlete.endure * 0.3 + athlete.tec * 0.5
-
+    return athlete.power * 0.2 + athlete.endure * 0.3 + athlete.tec * 0.5 * ((athlete.endure/11)**athlete.tired)
+    athlete.tired +=1
+    return result
 
 eventList = [
     m100,
@@ -366,12 +380,17 @@ def onAppStart(app):
     app.cardSelected = False
     app.selected = None
     app.trainingMessage = "pick one athlete for each type of training:"
+    app.runLength = 0
+    app.bestRunLength = 0
     pass
 
 
 def redrawAll(app):
     if app.game:
         drawTrack(app)
+        drawRect(20, 300, 400, 120, fill="gray")
+        drawLabel("Run Length: " + str(app.runLength), 190, 350, fill="blue", size=50)
+        drawLabel("Best Run Length: " + str(app.bestRunLength), 190, 400, fill="blue", size=25)
         for i in range(len(myteam.team)):
             makeCard(
                 i * 1500 / len(myteam.team) + ((0.5 * 1500 / len(myteam.team)) - 55),
@@ -659,6 +678,8 @@ def computerPick():  # terrible returns list in order of events no wearing out y
         best = None
         bestScore = 0
     return bestList
+
+
 # meet
 
 
@@ -714,29 +735,52 @@ def onMousePress(app, mouseX, mouseY):
                 and app.cardSelected
             ):
                 if app.selected != None:
-                    if (eventList[app.currentEvent](app.selected)) > eventList[app.currentEvent](computerPick()[app.currentEvent]):
-                        print('you: '+ str(eventList[app.currentEvent](app.selected)))
-                        print('them: '+ str(eventList[app.currentEvent](computerPick()[app.currentEvent])))
-                        app.playerScore +=1
-                        print('you win')
-                    elif (eventList[app.currentEvent](app.selected)) == eventList[app.currentEvent](computerPick()[app.currentEvent]):
-                        app.playerScore +=0.5
+                    if (eventList[app.currentEvent](app.selected)) > eventList[
+                        app.currentEvent
+                    ](computerPick()[app.currentEvent]):
+                        print("you: " + str(eventList[app.currentEvent](app.selected)))
+                        print(
+                            "them: "
+                            + str(
+                                eventList[app.currentEvent](
+                                    computerPick()[app.currentEvent]
+                                )
+                            )
+                        )
+                        app.playerScore += 1
+                        print("you win")
+                    elif (eventList[app.currentEvent](app.selected)) == eventList[
+                        app.currentEvent
+                    ](computerPick()[app.currentEvent]):
+                        app.playerScore += 0.5
                         app.opponentScore += 0.5
-                        print('you tied')
+                        print("you tied")
                     else:
-                        print('you: '+ str(eventList[app.currentEvent](app.selected)))
-                        print('them: '+ str(eventList[app.currentEvent](computerPick()[app.currentEvent])))
-                        app.opponentScore +=1
-                        print('you lose')
+                        print("you: " + str(eventList[app.currentEvent](app.selected)))
+                        print(
+                            "them: "
+                            + str(
+                                eventList[app.currentEvent](
+                                    computerPick()[app.currentEvent]
+                                )
+                            )
+                        )
+                        app.opponentScore += 1
+                        print("you lose")
                     print(app.currentEvent)
                     print(len(app.eventsList))
-                    if app.currentEvent < len(app.eventsList)-1:
-                        app.currentEvent +=1
+                    if app.currentEvent < len(app.eventsList) - 1:
+                        app.currentEvent += 1
                     else:
-                        print('meet Over')
-                        if app.opponentScore >app.playerScore:
-                            print('theres an issue with newyear')
+                        print("meet Over")
+                        if app.bestRunLength < app.runLength:
+                            app.bestRunLength = app.runLength
+                        if app.opponentScore > app.playerScore:
                             myteam.newyear()
+                            app.runLength = 0
+                        else:
+                            app.runLength += 1
+                        
                         app.opponentScore = 0
                         otherTeam = team()
                         otherTeam.makeRoster()
