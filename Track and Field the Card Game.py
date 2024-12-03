@@ -199,74 +199,74 @@ def makeAthlete(year=-1, runLength = 0):
 # events
 
 
-def m100(athlete):
-    result= athlete.power * ((athlete.endure/11)**(athlete.tired**1.5))
-    athlete.tired +=1
+def m100(tfAthlete):
+    result= tfAthlete.power * ((tfAthlete.endure/11)**(tfAthlete.tired**1.5))
+    tfAthlete.tired +=1
     return result
 
-def m200(athlete):
-    return athlete.power * 0.8 + athlete.endure * 0.2 * ((athlete.endure/11)**(athlete.tired**1.5))
-    athlete.tired +=1
+def m200(tfAthlete):
+    result = tfAthlete.power * 0.8 + tfAthlete.endure * 0.2 * ((tfAthlete.endure/11)**(tfAthlete.tired**1.5))
+    tfAthlete.tired +=1
     return result
 
-def m400(athlete):
-    return athlete.power * 0.4 + athlete.endure * 0.6 *  ((athlete.endure/11)**(athlete.tired**1.5))
-    athlete.tired +=1
+def m400(tfAthlete):
+    result = tfAthlete.power * 0.4 + tfAthlete.endure * 0.6 *  ((tfAthlete.endure/11)**(tfAthlete.tired**1.5))
+    tfAthlete.tired +=1
     return result
 
-def m800(athlete):
-    return athlete.power * 0.3 + athlete.endure * 0.7 * ((athlete.endure/11)**(athlete.tired**1.5))
-    athlete.tired +=1
+def m800(tfAthlete):
+    result = tfAthlete.power * 0.3 + tfAthlete.endure * 0.7 * ((tfAthlete.endure/11)**(tfAthlete.tired**1.5))
+    tfAthlete.tired +=1
     return result
 
-def m1600(athlete):
-    return athlete.power * 0.2 + athlete.endure * 0.8 * ((athlete.endure/11)**(athlete.tired**1.5))
-    athlete.tired +=1
+def m1600(tfAthlete):
+    result = tfAthlete.power * 0.2 + tfAthlete.endure * 0.8 * ((tfAthlete.endure/11)**(tfAthlete.tired**1.5))
+    tfAthlete.tired +=1
     return result
 
-def m3200(athlete):
-    return athlete.power * 0.1 + athlete.endure * 0.9 * ((athlete.endure/11)**(athlete.tired**1.5))
-    athlete.tired +=1
+def m3200(tfAthlete):
+    result =  tfAthlete.power * 0.1 + tfAthlete.endure * 0.9 * ((tfAthlete.endure/11)**(tfAthlete.tired**1.5))
+    tfAthlete.tired +=1
     return result
 
-def discus(athlete):
-    return athlete.power * 0.4 + athlete.tec * 0.6 * ((athlete.endure/11)**(athlete.tired**1.5))
-    athlete.tired +=1
+def discus(tfAthlete):
+    result = tfAthlete.power * 0.4 + tfAthlete.tec * 0.6 * ((tfAthlete.endure/11)**(tfAthlete.tired**1.5))
+    tfAthlete.tired +=1
     return result
 
-def shotput(athlete):
-    return athlete.power * 0.7 + athlete.tec * 0.3 * ((athlete.endure/11)**(athlete.tired**1.5))
-    athlete.tired +=1
+def shotput(tfAthlete):
+    result = tfAthlete.power * 0.7 + tfAthlete.tec * 0.3 * ((tfAthlete.endure/11)**(tfAthlete.tired**1.5))
+    tfAthlete.tired +=1
     return result
 
-def jav(athlete):
-    return athlete.power * 0.3 + athlete.tec * 0.7 *((athlete.endure/11)**(athlete.tired**1.5))
-    athlete.tired +=1
+def jav(tfAthlete):
+    result = tfAthlete.power * 0.3 + tfAthlete.tec * 0.7 *((tfAthlete.endure/11)**(tfAthlete.tired**1.5))
+    tfAthlete.tired +=1
     return result
 
-def long(athlete):
-    return athlete.power * 0.7 + athlete.tec * 0.3 * ((athlete.endure/11)**(athlete.tired**1.5))
-    athlete.tired +=1
+def long(tfAthlete):
+    result = tfAthlete.power * 0.7 + tfAthlete.tec * 0.3 * ((tfAthlete.endure/11)**(tfAthlete.tired**1.5))
+    tfAthlete.tired +=1
     return result
 
-def high(athlete):
-    return athlete.power * 0.6 + athlete.tec * 0.4 * ((athlete.endure/11)**(athlete.tired**1.5))
-    athlete.tired +=1
+def high(tfAthlete):
+    result = tfAthlete.power * 0.6 + tfAthlete.tec * 0.4 * ((tfAthlete.endure/11)**(tfAthlete.tired**1.5))
+    tfAthlete.tired +=1
     return result
 
-def polevault(athlete):
-    return athlete.power * 0.3 + athlete.tec * 0.7 * ((athlete.endure/11)**(athlete.tired**1.5))
-    athlete.tired +=1
+def polevault(tfAthlete):
+    result = tfAthlete.power * 0.3 + tfAthlete.tec * 0.7 * ((tfAthlete.endure/11)**(tfAthlete.tired**1.5))
+    tfAthlete.tired +=1
     return result
 
-def h110(athlete):
-    return athlete.power * 0.5 + athlete.tec * 0.5 *((athlete.endure/11)**(athlete.tired**1.5))
-    athlete.tired +=1
+def h110(tfAthlete):
+    result = tfAthlete.power * 0.5 + tfAthlete.tec * 0.5 *((tfAthlete.endure/11)**(tfAthlete.tired**1.5))
+    tfAthlete.tired +=1
     return result
 
-def h400(athlete):
-    return athlete.power * 0.2 + athlete.endure * 0.3 + athlete.tec * 0.5 *((athlete.endure/11)**(athlete.tired**1.5))
-    athlete.tired +=1
+def h400(tfAthlete):
+    result = tfAthlete.power * 0.2 + tfAthlete.endure * 0.3 + tfAthlete.tec * 0.5 *((tfAthlete.endure/11)**(tfAthlete.tired**1.5))
+    tfAthlete.tired +=1
     return result
 
 eventList = [
@@ -613,6 +613,7 @@ def makeCard(x, y, athlete, AI=False):
             fill=color,
         )
         drawRect(x + 5, y + 180, athlete.endure * 10, 10, fill="blue", border=color)
+        drawRect(x+5,y+10,10,athlete.tired + 1,fill = color)
     if AI:
         drawRect(x + 20, y + 25, 70, 70, fill="white")
         drawCircle(x + 55, y + 60, 30, fill="yellow")
@@ -681,8 +682,11 @@ def computerPick():
     return bestList
     # final = recursiveCompPick(otherTeam.team,Copy.copy(eventList))
 
-
-
+def handNumber(roster):
+    score = 0
+    for i in range(len(roster)):
+        score += eventList[i](roster[i])
+    return score
 """def recursiveCompPick(team,eventsLeft, roster,rosterScore = 0):
     #team = copy.deepcopy(otherTeam.team)
     bestScore = 0
@@ -696,10 +700,12 @@ def computerPick():
         roster.append(athlete)
         rosterScore = eventsLeft[0](athlete)
         recursiveCompPick(team,eventsLeft[1:],roster, rosterScore)       
-print('uhh') 
+print('uhh') """
 otherTeam = team()
 otherTeam.makeRoster()
-print(recursiveCompPick(otherTeam.team,eventList,[]))  """
+print(' ')
+#print(recursiveCompPick(otherTeam.team,eventList,[])) 
+print(handNumber(computerPick()))
 
 
 
