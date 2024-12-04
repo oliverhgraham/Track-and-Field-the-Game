@@ -420,8 +420,8 @@ def onAppStart(app):
     app.opponentScore = 0
     app.cardSelected = False
     app.selected = None
-    app.win = 'good Job you won!'
-    app.lose = 'new year new team you got it this year!'
+    app.win = "good Job you won!"
+    app.lose = "new year new team you got it this year!"
     app.outcome = None
     app.trainingMessage = "pick one athlete for each type of training:"
     app.runLength = 0
@@ -491,10 +491,10 @@ def drawMeet(app):  # need to do
 
 
 def drawPractice(app):
-    if app.outcome == 'win':
-        drawLabel(app.win,app.width/2,75,size = 50,fill = 'blue')
-    elif app.outcome == 'lose':
-        drawLabel(app.lose,app.width/2,75,size = 50,fill = 'red')
+    if app.outcome == "win":
+        drawLabel(app.win, app.width / 2, 75, size=50, fill="blue")
+    elif app.outcome == "lose":
+        drawLabel(app.lose, app.width / 2, 75, size=50, fill="red")
     drawLabel(
         app.trainingMessage,
         app.width / 2,
@@ -553,39 +553,67 @@ def drawHome(app):
 
 def drawHelp(app):  # needs to be done
     drawRect(0, 0, app.width, app.height, fill="white")
+    drawLabel("Welcome to Track and Field the Game!", app.width / 4, 20, size=40)
     drawLabel(
-        "Welcome to Track and Field the Game!", app.width/4, 20, size = 40
+        "when you start the game you will be given a track and field team!",
+        app.width / 4,
+        50,
+        size=20,
     )
     drawLabel(
-        "when you start the game you will be given a track and field team!", app.width/4, 50, size = 20
+        "you can then train themm by clicking on them and then",
+        app.width / 4,
+        70,
+        size=20,
     )
     drawLabel(
-        "you can then train themm by clicking on them and then", app.width/4, 70, size = 20
+        "clicking on the training type you want to give them!",
+        app.width / 4,
+        90,
+        size=20,
     )
     drawLabel(
-        "clicking on the training type you want to give them!",app.width/4,90,size = 20
+        "your goal is to try to make it as long as possible against the other teams,",
+        app.width / 4,
+        110,
+        size=20,
     )
     drawLabel(
-        "your goal is to try to make it as long as possible against the other teams,", app.width/4, 110, size = 20
+        "which only get harder,without losing! when you lose, all your 4th",
+        app.width / 4,
+        130,
+        size=20,
     )
     drawLabel(
-        "which only get harder,without losing! when you lose, all your 4th", app.width/4, 130, size = 20
+        "years will graduate and you'll get some new athletes to replace them.",
+        app.width / 4,
+        150,
+        size=20,
     )
     drawLabel(
-        "years will graduate and you'll get some new athletes to replace them.",app.width/4,150,size = 20
+        "when you use an athlete they'll get tired and will exponentially preform worse",
+        app.width / 4,
+        170,
+        size=20,
     )
     drawLabel(
-        "when you use an athlete they'll get tired and will exponentially preform worse",app.width/4,170,size=20
+        "if you keep using them though if they have high endurance they get worse slower.",
+        app.width / 4,
+        190,
+        size=20,
     )
     drawLabel(
-        "if you keep using them though if they have high endurance they get worse slower.",app.width/4,190,size=20
+        " there are 14 events: " + str(app.eventsList[0:4]), app.width / 4, 210, size=20
     )
+    drawLabel(str(app.eventsList[4:10]), app.width / 4, 230, size=20)
+    drawLabel(str(app.eventsList[10:14]), app.width / 4, 250, size=20)
     drawLabel(
-        " there are 14 events: " + str(app.eventsList[0:4]),app.width/4,210,size = 20
+        "different events require different amounts each atribute to preform well",
+        app.width / 4,
+        270,
+        size=20,
     )
-    drawLabel(str(app.eventsList[4:10]),app.width/4,230,size =20)
-    drawLabel(str(app.eventsList[10:14]),app.width/4,250,size = 20)
-    drawLabel("different events require different amounts each atribute to preform well",app.width/4,270,size = 20)
+
 
 def startGame(app):
     pass
@@ -743,7 +771,7 @@ def makeCard(x, y, athlete, AI=False):
         fill=color,
         size=20,
         rotateAngle=90,
-        )
+    )
 
 
 def main():
@@ -751,6 +779,7 @@ def main():
 
 
 # AI
+
 
 def computerPick():
     bestList = []
@@ -819,7 +848,7 @@ def onMousePress(app, mouseX, mouseY):
             app.help = True
     else:
         if not app.meet:
-            for athlete in myteam:
+            for athlete in myteam.team:
                 athlete.tired = 0
             if (
                 app.width / 2 - 400 < mouseX < app.width / 2 - 200
@@ -897,11 +926,11 @@ def onMousePress(app, mouseX, mouseY):
                         if app.bestRunLength < app.runLength:
                             app.bestRunLength = app.runLength
                         if app.opponentScore > app.playerScore:
-                            app.outcome = 'lose'
+                            app.outcome = "lose"
                             myteam.newyear()
                             app.runLength = 0
                         else:
-                            app.outcome = 'win'
+                            app.outcome = "win"
                             app.runLength += 1
 
                         app.opponentScore = 0
@@ -918,7 +947,6 @@ def onMousePress(app, mouseX, mouseY):
                         app.endureTrain = False
                         app.tecTrain = False
                         app.powerTrain = False
-
 
         for i in range(len(myteam.team)):
             if (
