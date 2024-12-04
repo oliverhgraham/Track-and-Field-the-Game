@@ -746,20 +746,23 @@ def computerPick():
             dOfRepeats[best] = 1
         best = None
         bestScore = 0
-    result = greedyPick(bestList,dOfRepeats)
+    result = greedyPick(bestList, dOfRepeats)
     return result
 
-def greedyPick(initial,dor):
+
+def greedyPick(
+    initial, dor
+):  # idea of greedy method was given to me by a friend but all code and emplementation is my own
     dTiredLevel = {}
     for i in range(max(dor.values())):
-        for athlete in initial: 
+        for athlete in initial:
             if athlete in dTiredLevel:
                 athlete.tired = dTiredLevel[athlete]
             if athlete in dTiredLevel:
-                dTiredLevel[athlete] = dTiredLevel[athlete] +1
+                dTiredLevel[athlete] = dTiredLevel[athlete] + 1
             else:
                 dTiredLevel[athlete] = 1
-            athlete.tired +=1
+            athlete.tired += 1
         best = None
         for event in range(len(eventList)):
             for athlete in otherTeam.team:
@@ -768,23 +771,8 @@ def greedyPick(initial,dor):
                 elif eventList[event](athlete) > eventList[event](best):
                     best = athlete
                 athlete.tired = 0
-            initial.insert(event,best)
+            initial.insert(event, best)
     return initial
-
-
-
-
-'''def handNumber(roster):
-    score = 0
-    for i in range(len(roster)):
-        score += eventList[i](roster[i])
-    return score'''
-
-#greedy solution: find best option ignoring the tiredness then recuse through with 1 layer of tiredness etc until you get same number of layers of tiredness as you have max number of any 1 athlete. - sahil told me about gready method
-
-
-
-# meet
 
 
 # input
