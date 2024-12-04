@@ -1,4 +1,5 @@
 # Track Coach the Game!! by Oliver Graham ograham
+#thank you to all the play testers for your feedback!
 # imports
 from cmu_graphics import *
 import random
@@ -613,8 +614,33 @@ def drawHelp(app):  # needs to be done
         270,
         size=20,
     )
-
-
+    drawLabel("after the practice you'll be put in a meet",app.width/4,290,size = 20)
+    drawLabel("you'll have to select whatever athlete you think will preform the best",app.width/4,310,size = 20)
+    drawLabel("Hints:",app.width*3/4,20,size = 40)
+    drawLabel(
+        "in events that require speed or strength high power stat is useful", app.width*3/4,50,size = 20
+    )
+    drawLabel(
+        "having more endurance helps in long running events and in not getting as tired",app.width*3/4,70,size = 20
+    )
+    drawLabel(
+        "careful training doesn't always improve the athlete",app.width*3/4,90,size = 20
+    )
+    drawLabel(
+        "as you progress the other team will only get better",app.width*3/4,110,size = 20
+    )
+    drawLabel(
+        "technique is useful for jumping, throwing, and hurdle events",app.width*3/4,130,size = 20
+    )
+    drawLabel(
+        "when in the game you can always press escape to go back to the home screen",app.width/2,400,size = 40
+    )
+    drawLabel(
+        "(in help screen just press anywhere)",app.width/2,430,size = 20
+    )
+    drawLabel(
+        "most importantly have fun!",app.width/2,500,size = 40
+    )
 def startGame(app):
     pass
 
