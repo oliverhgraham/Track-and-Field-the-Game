@@ -420,9 +420,13 @@ def onAppStart(app):
     app.opponentScore = 0
     app.cardSelected = False
     app.selected = None
+    app.win = 'good Job you won!'
+    app.lose = 'new year new team you got it this year!'
+    app.outcome = None
     app.trainingMessage = "pick one athlete for each type of training:"
     app.runLength = 0
     app.bestRunLength = 0
+    app.compPickList = computerPick()
     pass
 
 
@@ -481,12 +485,16 @@ def drawMeet(app):  # need to do
     makeCard(
         app.width / 2 + 200,
         app.height / 2 - 100,
-        computerPick()[app.currentEvent],
+        app.compPickList[app.currentEvent],
         True,
     )
 
 
 def drawPractice(app):
+    if app.outcome == 'win':
+        drawLabel(app.win,app.width/2,75,size = 50,fill = 'blue')
+    elif app.outcome == 'lose':
+        drawLabel(app.lose,app.width/2,75,size = 50,fill = 'red')
     drawLabel(
         app.trainingMessage,
         app.width / 2,
@@ -546,9 +554,38 @@ def drawHome(app):
 def drawHelp(app):  # needs to be done
     drawRect(0, 0, app.width, app.height, fill="white")
     drawLabel(
-        "instructions on how to play, click anywhere to exit back to home", 20, 20
+        "Welcome to Track and Field the Game!", app.width/4, 20, size = 40
     )
-
+    drawLabel(
+        "when you start the game you will be given a track and field team!", app.width/4, 50, size = 20
+    )
+    drawLabel(
+        "you can then train themm by clicking on them and then", app.width/4, 70, size = 20
+    )
+    drawLabel(
+        "clicking on the training type you want to give them!",app.width/4,90,size = 20
+    )
+    drawLabel(
+        "your goal is to try to make it as long as possible against the other teams,", app.width/4, 110, size = 20
+    )
+    drawLabel(
+        "which only get harder,without losing! when you lose, all your 4th", app.width/4, 130, size = 20
+    )
+    drawLabel(
+        "years will graduate and you'll get some new athletes to replace them.",app.width/4,150,size = 20
+    )
+    drawLabel(
+        "when you use an athlete they'll get tired and will exponentially preform worse",app.width/4,170,size=20
+    )
+    drawLabel(
+        "if you keep using them though if they have high endurance they get worse slower.",app.width/4,190,size=20
+    )
+    drawLabel(
+        " there are 14 events: " + str(app.eventsList[0:4]),app.width/4,210,size = 20
+    )
+    drawLabel(str(app.eventsList[4:10]),app.width/4,230,size =20)
+    drawLabel(str(app.eventsList[10:14]),app.width/4,250,size = 20)
+    drawLabel("different events require different amounts each atribute to preform well",app.width/4,270,size = 20)
 
 def startGame(app):
     pass
@@ -655,26 +692,6 @@ def makeCard(x, y, athlete, AI=False):
             fill=color,
         )
         drawRect(x + 5, y + 180, athlete.endure * 10, 10, fill="blue", border=color)
-        if athlete.tired <= 5:
-            drawRect(
-                x + 5,
-                y + 10,
-                10,
-                (athlete.tired + 1) * 18,
-                fill=rgb(51 * athlete.tired, 0, 0),
-                border=color,
-            )
-        else:
-            drawRect(x + 5, y + 10, 10, 100, fill="red", border=color)
-        drawLabel(
-            "tired",
-            x + 10,
-            y + 30,
-            align="top",
-            fill=color,
-            size=20,
-            rotateAngle=90,
-        )
     if AI:
         drawRect(x + 20, y + 25, 70, 70, fill="white")
         drawCircle(x + 55, y + 60, 30, fill="yellow")
@@ -707,6 +724,26 @@ def makeCard(x, y, athlete, AI=False):
             10,
             fill=gradient("blue", cardColor, start="left"),
         )
+    if athlete.tired <= 5:
+        drawRect(
+            x + 5,
+            y + 10,
+            10,
+            (athlete.tired + 1) * 18,
+            fill=rgb(51 * athlete.tired, 0, 0),
+            border=color,
+        )
+    else:
+        drawRect(x + 5, y + 10, 10, 100, fill="red", border=color)
+    drawLabel(
+        "tired",
+        x + 10,
+        y + 30,
+        align="top",
+        fill=color,
+        size=20,
+        rotateAngle=90,
+        )
 
 
 def main():
@@ -714,18 +751,6 @@ def main():
 
 
 # AI
-
-""" code recieved from my brother
-
-func_list = [ a, b, c ]
-
-cur_max = 0
-
-for func in func_list:
-    cur_max = max(func(10), cur_max)
-
-"""
-
 
 def computerPick():
     bestList = []
@@ -747,6 +772,8 @@ def computerPick():
         best = None
         bestScore = 0
     result = greedyPick(bestList, dOfRepeats)
+    for athlete in otherTeam.team:
+        athlete.tired = 0
     return result
 
 
@@ -792,6 +819,8 @@ def onMousePress(app, mouseX, mouseY):
             app.help = True
     else:
         if not app.meet:
+            for athlete in myteam:
+                athlete.tired = 0
             if (
                 app.width / 2 - 400 < mouseX < app.width / 2 - 200
                 and app.height / 2 + 120 > mouseY > app.height / 2 - 80
@@ -829,13 +858,13 @@ def onMousePress(app, mouseX, mouseY):
                 if app.selected != None:
                     if (eventList[app.currentEvent](app.selected)) > eventList[
                         app.currentEvent
-                    ](computerPick()[app.currentEvent]):
+                    ](app.compPickList[app.currentEvent]):
                         print("you: " + str(eventList[app.currentEvent](app.selected)))
                         print(
                             "them: "
                             + str(
                                 eventList[app.currentEvent](
-                                    computerPick()[app.currentEvent]
+                                    app.compPickList[app.currentEvent]
                                 )
                             )
                         )
@@ -843,7 +872,7 @@ def onMousePress(app, mouseX, mouseY):
                         print("you win")
                     elif (eventList[app.currentEvent](app.selected)) == eventList[
                         app.currentEvent
-                    ](computerPick()[app.currentEvent]):
+                    ](app.compPickList[app.currentEvent]):
                         app.playerScore += 0.5
                         app.opponentScore += 0.5
                         print("you tied")
@@ -853,7 +882,7 @@ def onMousePress(app, mouseX, mouseY):
                             "them: "
                             + str(
                                 eventList[app.currentEvent](
-                                    computerPick()[app.currentEvent]
+                                    app.compPickList[app.currentEvent]
                                 )
                             )
                         )
@@ -868,13 +897,17 @@ def onMousePress(app, mouseX, mouseY):
                         if app.bestRunLength < app.runLength:
                             app.bestRunLength = app.runLength
                         if app.opponentScore > app.playerScore:
+                            app.outcome = 'lose'
                             myteam.newyear()
                             app.runLength = 0
                         else:
+                            app.outcome = 'win'
                             app.runLength += 1
 
                         app.opponentScore = 0
                         otherTeam = team()
+                        otherTeam.makeRoster()
+                        app.compPickList = computerPick()
                         if app.runLength < 8:
                             otherTeam.makeRoster(runLength=app.runLength)
                         else:
@@ -885,6 +918,7 @@ def onMousePress(app, mouseX, mouseY):
                         app.endureTrain = False
                         app.tecTrain = False
                         app.powerTrain = False
+
 
         for i in range(len(myteam.team)):
             if (
