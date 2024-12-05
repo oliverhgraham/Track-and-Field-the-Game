@@ -45,6 +45,7 @@ class team:
         self.size = 10
 
     def makeRoster(self, runLength=0):
+        self.team = []
         temp = []
         for i in range(self.size):
             temp.append(makeAthlete(runLength=runLength))
@@ -401,30 +402,30 @@ def onAppStart(app):
     app.tecTrain = False
     app.powerTrain = False
     app.eventsList = [
-        "100M dash",
-        "200M dash",
-        "400m dash",
-        "800m dash",
-        "1600m",
-        "3200m",
-        "discus",
-        "shotput",
-        "javolin",
-        "long Jump",
-        "high Jump",
-        "polevault",
-        "110m hurdles",
-        "400m hurdles",
+        "100M Dash",
+        "200M Dash",
+        "400M Dash",
+        "800M Dash",
+        "1600M",
+        "3200M",
+        "Discus",
+        "Shotput",
+        "Javelin",
+        "Long Jump",
+        "High Jump",
+        "Polevault",
+        "110M Hurdles",
+        "400M Hurdles",
     ]
     app.currentEvent = 0
     app.playerScore = 0
     app.opponentScore = 0
     app.cardSelected = False
     app.selected = None
-    app.win = "good Job you won!"
-    app.lose = "new year new team you got it this year!"
+    app.win = "Good Job You Won!"
+    app.lose = "New Year New Team You Got It This Year!"
     app.outcome = None
-    app.trainingMessage = "pick one athlete for each type of training:"
+    app.trainingMessage = "Pick one athlete for each type of training:"
     app.runLength = 0
     app.bestRunLength = 0
     app.compPickList = computerPick()
@@ -466,7 +467,7 @@ def drawMeet(app):  # need to do
     )
     drawRect(app.width - 340, app.height / 2 - 80, 300, 50, fill="gray")
     drawLabel(
-        "computer's Score: " + str(app.opponentScore),
+        "Computer's Score: " + str(app.opponentScore),
         app.width - 190,
         app.height / 2 - 50,
         size=32,
@@ -540,7 +541,7 @@ def drawHome(app):
 
     drawTrack(app)
     drawLabel(
-        "Track and Field the Card game",
+        "Track and Field the Card Game",
         app.width / 2,
         app.height / 4,
         size=50,
@@ -562,7 +563,7 @@ def drawHelp(app):  # needs to be done
         size=20,
     )
     drawLabel(
-        "you can then train themm by clicking on them and then",
+        "you can then train them by clicking on them, then",
         app.width / 4,
         70,
         size=20,
@@ -580,7 +581,7 @@ def drawHelp(app):  # needs to be done
         size=20,
     )
     drawLabel(
-        "which only get harder,without losing! when you lose, all your 4th",
+        "which only get harder, without losing! when you lose, all your 4th",
         app.width / 4,
         130,
         size=20,
@@ -598,7 +599,7 @@ def drawHelp(app):  # needs to be done
         size=20,
     )
     drawLabel(
-        "if you keep using them though if they have high endurance they get worse slower.",
+        "if they have high endurance they'll preform better for longer",
         app.width / 4,
         190,
         size=20,
@@ -960,8 +961,7 @@ def onMousePress(app, mouseX, mouseY):
                             app.runLength += 1
 
                         app.opponentScore = 0
-                        otherTeam = team()
-                        otherTeam.makeRoster()
+                        #otherTeam.makeRoster()
                         app.compPickList = computerPick()
                         if app.runLength < 8:
                             otherTeam.makeRoster(runLength=app.runLength)
