@@ -1,5 +1,5 @@
 # Track Coach the Game!! by Oliver Graham ograham
-# thank you to all the play testers for your feedback!
+#thank you to all the play testers for your feedback!
 # imports
 from cmu_graphics import *
 import random
@@ -422,8 +422,8 @@ def onAppStart(app):
     app.opponentScore = 0
     app.cardSelected = False
     app.selected = None
-    app.win = "Good Job You Won!"
-    app.lose = "New Year New Team You Got It This Year!"
+    app.win = "Good Job, You Won!"
+    app.lose = "New Year, New Team, You Got It This Year!"
     app.outcome = None
     app.trainingMessage = "Pick one athlete for each type of training:"
     app.runLength = 0
@@ -563,7 +563,7 @@ def drawHelp(app):  # needs to be done
         size=20,
     )
     drawLabel(
-        "you can then train them by clicking on them, then",
+        "you can train the players by clicking on them, then",
         app.width / 4,
         70,
         size=20,
@@ -575,31 +575,31 @@ def drawHelp(app):  # needs to be done
         size=20,
     )
     drawLabel(
-        "your goal is to try to make it as long as possible against the other teams,",
+        "your goal is to try to maintain a winning streak against the other teams,",
         app.width / 4,
         110,
         size=20,
     )
     drawLabel(
-        "which only get harder, without losing! when you lose, all your 4th",
+        "which only gets harder. When you lose, all your 4th years will graduate",
         app.width / 4,
         130,
         size=20,
     )
     drawLabel(
-        "years will graduate and you'll get some new athletes to replace them.",
+        " and you'll get some new athletes to replace them.",
         app.width / 4,
         150,
         size=20,
     )
     drawLabel(
-        "when you use an athlete they'll get tired and will exponentially preform worse",
+        "when you use an athlete they'll get tired and will exponentially perform worse",
         app.width / 4,
         170,
         size=20,
     )
     drawLabel(
-        "if they have high endurance they'll preform better for longer",
+        "if they have high endurance they'll perform better for longer",
         app.width / 4,
         190,
         size=20,
@@ -610,59 +610,38 @@ def drawHelp(app):  # needs to be done
     drawLabel(str(app.eventsList[4:10]), app.width / 4, 230, size=20)
     drawLabel(str(app.eventsList[10:14]), app.width / 4, 250, size=20)
     drawLabel(
-        "different events require different amounts each atribute to preform well",
+        "different events require different amounts of each attribute to perform well",
         app.width / 4,
         270,
         size=20,
     )
-    drawLabel("after the practice you'll be put in a meet", app.width / 4, 290, size=20)
+    drawLabel("after the practice you'll be put in a meet",app.width/4,290,size = 20)
+    drawLabel("you'll have to select whatever athlete you think will perform the best",app.width/4,310,size = 20)
+    drawLabel("Hints:",app.width*3/4,20,size = 40)
     drawLabel(
-        "you'll have to select whatever athlete you think will preform the best",
-        app.width / 4,
-        310,
-        size=20,
-    )
-    drawLabel("Hints:", app.width * 3 / 4, 20, size=40)
-    drawLabel(
-        "in events that require speed or strength high power stat is useful",
-        app.width * 3 / 4,
-        50,
-        size=20,
+        "in events that require speed or strength high power stat is useful", app.width*3/4,50,size = 20
     )
     drawLabel(
-        "having more endurance helps in long running events and in not getting as tired",
-        app.width * 3 / 4,
-        70,
-        size=20,
+        "having more endurance helps in long running events and in not getting as tired",app.width*3/4,70,size = 20
     )
     drawLabel(
-        "careful training doesn't always improve the athlete",
-        app.width * 3 / 4,
-        90,
-        size=20,
+        "careful training doesn't always improve the athlete",app.width*3/4,90,size = 20
     )
     drawLabel(
-        "as you progress the other team will only get better",
-        app.width * 3 / 4,
-        110,
-        size=20,
+        "as you progress the other team will only get better",app.width*3/4,110,size = 20
     )
     drawLabel(
-        "technique is useful for jumping, throwing, and hurdle events",
-        app.width * 3 / 4,
-        130,
-        size=20,
+        "technique is useful for jumping, throwing, and hurdle events",app.width*3/4,130,size = 20
     )
     drawLabel(
-        "when in the game you can always press escape to go back to the home screen",
-        app.width / 2,
-        400,
-        size=40,
+        "when in the game you can always press escape to go back to the home screen",app.width/2,400,size = 40
     )
-    drawLabel("(in help screen just press anywhere)", app.width / 2, 430, size=20)
-    drawLabel("most importantly have fun!", app.width / 2, 500, size=40)
-
-
+    drawLabel(
+        "(in the help screen just click anywhere)",app.width/2,430,size = 20
+    )
+    drawLabel(
+        "most importantly have fun!",app.width/2,500,size = 40
+    )
 def startGame(app):
     pass
 
@@ -880,7 +859,7 @@ def greedyPick(
     for athlete in otherTeam.team:
         dTiredLevel[athlete] = 0
         if athlete in initial:
-            dTiredLevel[athlete] = dTiredLevel[athlete] + 1
+            dTiredLevel[athlete] = dTiredLevel[athlete] +1
     for i in range(100):
         for event in range(len(eventList)):
             best = None
@@ -896,7 +875,7 @@ def greedyPick(
             for athlete in initial:
                 dTiredLevel[athlete] = 0
             for athlete in initial:
-                dTiredLevel[athlete] = dTiredLevel[athlete] + 1
+                dTiredLevel[athlete] = dTiredLevel[athlete] +1
     print(len(initial))
     return initial
 
@@ -1004,7 +983,7 @@ def onMousePress(app, mouseX, mouseY):
                             app.runLength += 1
 
                         app.opponentScore = 0
-                        # otherTeam.makeRoster()
+                        #otherTeam.makeRoster()
                         if app.runLength < 8:
                             otherTeam.makeRoster(runLength=app.runLength)
                         else:
