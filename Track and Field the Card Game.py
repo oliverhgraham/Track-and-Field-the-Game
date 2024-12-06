@@ -837,24 +837,46 @@ def greedyPick(
     initial, dor
 ):  # idea of greedy method was given to me by a friend but all code and emplementation is my own
     dTiredLevel = {}
+    """for athlete in otherTeam.team:
+        if athlete in initial:
+            dTiredLevel[athlete] = 1
+        else:
+            dTiredLevel[athlete] = 0
     for i in range(max(dor.values())):
-        for athlete in initial:
-            if athlete in dTiredLevel:
-                athlete.tired = dTiredLevel[athlete]
-            if athlete in dTiredLevel:
-                dTiredLevel[athlete] = dTiredLevel[athlete] + 1
-            else:
-                dTiredLevel[athlete] = 1
-            athlete.tired += 1
-        best = None
         for event in range(len(eventList)):
+            best = None
             for athlete in otherTeam.team:
                 if best == None:
                     best = athlete
                 elif eventList[event](athlete) > eventList[event](best):
                     best = athlete
-                athlete.tired = 0
+                best.tired = dTiredLevel[best]
+                athlete.tired = dTiredLevel[athlete]
+            initial.pop(event)
             initial.insert(event, best)
+            for athlete in set(initial):
+                dTiredLevel[athlete] = dTiredLevel[athlete] +1"""
+    for athlete in otherTeam.team:
+        dTiredLevel[athlete] = 0
+        if athlete in initial:
+            dTiredLevel[athlete] = dTiredLevel[athlete] +1
+    for i in range(100):
+        for event in range(len(eventList)):
+            best = None
+            for athlete in otherTeam.team:
+                if best == None:
+                    best = athlete
+                elif eventList[event](athlete) > eventList[event](best):
+                    best = athlete
+                best.tired = dTiredLevel[best]
+                athlete.tired = dTiredLevel[athlete]
+            initial.pop(event)
+            initial.insert(event, best)
+            for athlete in initial:
+                dTiredLevel[athlete] = 0
+            for athlete in initial:
+                dTiredLevel[athlete] = dTiredLevel[athlete] +1
+    print(len(initial))
     return initial
 
 
@@ -962,11 +984,11 @@ def onMousePress(app, mouseX, mouseY):
 
                         app.opponentScore = 0
                         #otherTeam.makeRoster()
-                        app.compPickList = computerPick()
                         if app.runLength < 8:
                             otherTeam.makeRoster(runLength=app.runLength)
                         else:
                             otherTeam.makeRoster(runLength=8)
+                        app.compPickList = computerPick()
                         app.playerScore = 0
                         app.currentEvent = 0
                         app.meet = False
